@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rate Limiter</title>
+</head>
+<body>
+
+<button onclick="callApi()"> Call API</button>
+<p id="response"></p>
+
+<script>
+    function callApi() {
+      fetch("http://localhost:8080/ping", {
+        method: "GET",
+        headers: {
+          "X-API-KEY": "temp-key"
+        }
+      })
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("response").innerText = data;
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        document.getElementById("response").innerText = "Error: " + error;
+      });
+    }
+</script>
+</body>
+</html>
