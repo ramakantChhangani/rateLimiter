@@ -13,3 +13,11 @@ This is a personal project on creating a rate limiter using Redis, Springboot. H
 -  Run the application
 -  Visit http://localhost:8081/ or http://localhost:8081/index.html
 -  You can change server.port in application.properties
+
+
+# What does it do?
+- It shows the algorithm chosen (currently from application.properties)
+
+- Token Bucket Algorithm - 
+   The current bucket size
+   If it shows request is throttled, wait for 10 secs. It will reset back to bucket size according to Token Bucket Algorithm
