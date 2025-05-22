@@ -4,7 +4,6 @@ package com.example.ratelimiter.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-
 import java.time.Duration;
 
 @Service
@@ -14,8 +13,8 @@ public class RateLimiterService {
 
     private final Duration window = Duration.ofSeconds(10);
 
-    public boolean isAllowed(String key){
-        String redisKey = "rate_limit:" + key;
+    public Boolean isAllowed(String key){
+        String redisKey = "token_bucket_rate_limit:" + key;
         Long requests = redisTemplate.opsForValue().increment(redisKey);
 
         if(requests == null){
@@ -25,7 +24,13 @@ public class RateLimiterService {
             redisTemplate.expire(redisKey, window);
         }
 
-        int MAX_REQUESTS = 5;
-        return requests.intValue() <= MAX_REQUESTS;
+        long MAX_REQUESTS = 5;
+
+        return requests <= MAX_REQUESTS;
+    }
+
+    public String getCount(String key){
+        String redisKey = "rate_limit:" + key;
+        return redisTemplate.opsForValue().get(redisKey);
     }
 }

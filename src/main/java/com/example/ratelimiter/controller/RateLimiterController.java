@@ -14,11 +14,13 @@ public class RateLimiterController {
     @Autowired
     private RateLimiterService rateLimiterService;
 
-    @GetMapping("/ping")
+    @GetMapping("/check")
     public ResponseEntity<String> check(@RequestHeader(value = "X-API-KEY", defaultValue = "anonymous") String apiKey){
+
         if(!rateLimiterService.isAllowed(apiKey)){
             return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body("Too Many Requests for : " + apiKey);
         }
-        return ResponseEntity.ok("Hello Ramakant");
+        return ResponseEntity.ok("Hello Buddy! x " + rateLimiterService.getCount(apiKey));
     }
+
 }
