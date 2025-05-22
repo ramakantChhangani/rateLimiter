@@ -11,7 +11,7 @@ This is a personal project on creating a rate limiter using Redis, Springboot. H
 -  Install Redis
 -  Start redis server using redis-server command
 -  Run the application
--  Visit http://localhost:8081/ or http://localhost:8081/index.html
+-  Visit http://localhost:8080/ or http://localhost:8080/index.html
 -  You can change server.port in application.properties
 
 
