@@ -1,31 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Rate Limiter</title>
-</head>
-<body>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
 
-<button onclick="callApi()"> Call API</button>
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #response {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .bucket-box {
+            border: 2px solid #4CAF50;
+            padding: 10px 20px;
+            background-color: #e8f5e9;
+            display: inline-block;
+            font-family: sans-serif;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .algorithm-box {
+            border: 2px solid #3498db;
+            padding: 10px 20px;
+            background-color: #eaf4fb;
+            display: inline-block;
+            font-family: Arial, sans-serif;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body onload="checkWithAlgo">
+
+<button onclick="checkWithAlgo()">Click Me</button>
 <p id="response"></p>
 
-<script>
-    function callApi() {
-      fetch("http://localhost:8080/ping", {
-        method: "GET",
-        headers: {
-          "X-API-KEY": "temp-key"
-        }
-      })
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("response").innerText = data;
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        document.getElementById("response").innerText = "Error: " + error;
-      });
-    }
-</script>
+
+
+<div class="bucket-box">
+    <strong>Current Bucket Size:</strong>
+    <span id="bucketSize">Loading....</span>
+</div>
+
+<div class="algorithm-box">
+    <strong>Algorithm Used:</strong>
+    <span id="algorithmName">Loading...</span>
+</div>
+
 </body>
+
+<script src="script.js"></script>
 </html>
