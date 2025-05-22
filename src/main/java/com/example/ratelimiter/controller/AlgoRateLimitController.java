@@ -20,8 +20,13 @@ public class AlgoRateLimitController {
     }
 
     @GetMapping("check/algo")
-    public int check_algo(@RequestHeader(value = "X-API-KEY", defaultValue = "anonymous") String apiKey){
-        return rateLimiter.isAllowed(apiKey);
+    public ResponseEntity<String> check_algo(@RequestHeader(value = "X-API-KEY", defaultValue = "anonymous") String apiKey){
+        int counter = rateLimiter.isAllowed(apiKey);
+        if(counter == -1){
+            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body("Request Throttled!");
+        }
+
+        return ResponseEntity.ok(String.valueOf(counter));
     }
 
     @GetMapping("check/algo/algorithm")

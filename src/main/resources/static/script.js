@@ -52,3 +52,15 @@ function getAlgorithm(){
                   document.getElementById("response").innerText = "Error: " + error;
     });
 }
+function onAlgorithmChange() {
+        const selectedPage = document.getElementById("algorithmSelect").value;
+        window.location.href = selectedPage;
+}
+
+function goToHome(){
+    window.location.href = "index.html";
+}
+
+document.addEventListener("DOMContentLoaded", getAlgorithm);
+document.addEventListener("DOMContentLoaded", checkWithAlgo);
+
